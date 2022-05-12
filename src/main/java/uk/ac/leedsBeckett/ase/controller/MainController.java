@@ -1,5 +1,6 @@
 package uk.ac.leedsBeckett.ase.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextArea;
@@ -18,7 +19,7 @@ public class MainController {
     private final ProgramController programController;
 
     @FXML
-    public Canvas mainCanvas;
+    public Canvas canvas;
     @FXML
     public GridPane graphicGridPane;
     @FXML
@@ -34,7 +35,8 @@ public class MainController {
     }
 
     @FXML
-    protected void onRunButtonClick() {
+    protected void onRunButtonClick(ActionEvent actionEvent) {
+        configureCanvas();
         String message = "";
         boolean bothPopulated = !commandInput.getText().isEmpty() && !programInput.getText().isEmpty();
         boolean commandPopulated = !commandInput.getText().isEmpty();
@@ -42,11 +44,16 @@ public class MainController {
         if (bothPopulated) {
             message = "You can only run a command or a program, not both.";
         } else if (commandPopulated) {
-            message = commandController.execute(commandInput.getText());
+            message = commandController.execute(commandInput.getText(), canvas.getGraphicsContext2D());
         } else if (programPopulated) {
             message = programController.execute(programInput.getText());
         }
         resultText.setText(message);
+    }
+
+    private void configureCanvas() {
+        canvas.setWidth(graphicGridPane.getWidth());
+        canvas.setHeight(graphicGridPane.getHeight());
     }
 
     @FXML
