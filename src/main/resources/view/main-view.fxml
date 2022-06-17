@@ -27,7 +27,8 @@
               style="-fx-border-color: white; -fx-border-width: 1.5; -fx-background-color: rgb(0,0,0,0.95);">
         <Canvas fx:id="canvas"/>
     </GridPane>
+    <Button text="Clear" GridPane.columnIndex="65" GridPane.rowIndex="26" onAction="#onClearCanvasButtonClick"/>
 
     <Text fx:id="resultText"
-          GridPane.columnIndex="17" GridPane.rowIndex="25" GridPane.rowSpan="10" GridPane.columnSpan="50"/>
+          GridPane.columnIndex="17" GridPane.rowIndex="27" GridPane.rowSpan="10" GridPane.columnSpan="50"/>
 </GridPane>

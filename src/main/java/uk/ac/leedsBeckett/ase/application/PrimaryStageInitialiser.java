@@ -8,9 +8,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.controller.MainController;
 
-/**
- * @author <a href="mailto:rene.gielen@gmail.com">Rene Gielen</a>
- */
 @Component
 public class PrimaryStageInitialiser implements ApplicationListener<StageReadyEvent> {
 

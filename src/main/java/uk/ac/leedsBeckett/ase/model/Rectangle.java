@@ -14,10 +14,10 @@ public class Rectangle extends Shape {
             case 3: {
             }
             case 2: {
-                return new Rectangle(250d, 100d, parameters[0], parameters[1]);
+                return new Rectangle(200d, 100d, parameters[0], parameters[1]);
             }
             case 1: {
-                return new Rectangle(250d, 100d, parameters[0], parameters[0]);
+                return new Rectangle(200d, 100d, parameters[0], parameters[0]);
             }
             default: {
                 return new Rectangle(200d, 100d, 100d, 100d);

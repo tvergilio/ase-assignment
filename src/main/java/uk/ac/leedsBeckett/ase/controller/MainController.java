@@ -3,6 +3,7 @@ package uk.ac.leedsBeckett.ase.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -48,7 +49,7 @@ public class MainController {
         } else if (programPopulated) {
             message = programController.execute(programInput.getText());
         }
-        resultText.setText(message);
+        resultText.setText(resultText.getText() + "\n" + message);
     }
 
     private void configureCanvas() {
@@ -63,4 +64,17 @@ public class MainController {
         resultText.setText("");
     }
 
+    private GraphicsContext getGraphicsContext() {
+        return canvas.getGraphicsContext2D();
+    }
+
+    public void onClearCanvasButtonClick() {
+        getGraphicsContext().clearRect(
+                0,
+                0,
+                canvas.getWidth(),
+                canvas.getHeight());
+        getGraphicsContext().beginPath();
+        resultText.setText("");
+    }
 }
