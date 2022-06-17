@@ -1,6 +1,5 @@
 package uk.ac.leedsBeckett.ase.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -36,7 +35,7 @@ public class MainController {
     }
 
     @FXML
-    protected void onRunButtonClick(ActionEvent actionEvent) {
+    protected void onRunButtonClick() {
         configureCanvas();
         String message = "";
         boolean bothPopulated = !commandInput.getText().isEmpty() && !programInput.getText().isEmpty();
@@ -64,17 +63,15 @@ public class MainController {
         resultText.setText("");
     }
 
-    private GraphicsContext getGraphicsContext() {
-        return canvas.getGraphicsContext2D();
-    }
-
-    public void onClearCanvasButtonClick() {
-        getGraphicsContext().clearRect(
+    @FXML
+    protected void onClearCanvasButtonClick() {
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        graphicsContext.clearRect(
                 0,
                 0,
                 canvas.getWidth(),
                 canvas.getHeight());
-        getGraphicsContext().beginPath();
+        graphicsContext.beginPath();
         resultText.setText("");
     }
 }
