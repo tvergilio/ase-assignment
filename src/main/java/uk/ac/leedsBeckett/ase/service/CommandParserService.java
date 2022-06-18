@@ -1,9 +1,9 @@
 package uk.ac.leedsBeckett.ase.service;
 
+import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.Circle;
 import uk.ac.leedsBeckett.ase.model.Rectangle;
-import uk.ac.leedsBeckett.ase.model.Shape;
 
 import java.util.Arrays;
 

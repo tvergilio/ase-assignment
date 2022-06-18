@@ -1,23 +1,22 @@
 package uk.ac.leedsBeckett.ase.service;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.Circle;
 import uk.ac.leedsBeckett.ase.model.Rectangle;
-import uk.ac.leedsBeckett.ase.model.Shape;
 
 @Component
 public class ShapeService {
 
     public void drawShape(Shape shape, GraphicsContext graphicsContext) {
+        graphicsContext.beginPath();
         if (shape instanceof Rectangle) {
-            graphicsContext.rect(
-                    shape.getX(),
-                    shape.getY(),
-                    shape.getWidth(),
-                    shape.getHeight());
+            Rectangle rectangle = (Rectangle) shape;
+            graphicsContext.rect(rectangle.getLayoutX(), rectangle.getLayoutY(), rectangle.getWidth(), rectangle.getHeight());
         } else if (shape instanceof Circle) {
-            graphicsContext.arc(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight(), 0d, 360.0);
+            Circle circle = (Circle) shape;
+            graphicsContext.arc(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), circle.getRadius(), 0, 360.0);
         }
         graphicsContext.stroke();
     }

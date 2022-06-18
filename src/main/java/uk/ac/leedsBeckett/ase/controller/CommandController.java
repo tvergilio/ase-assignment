@@ -2,8 +2,8 @@ package uk.ac.leedsBeckett.ase.controller;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
-import uk.ac.leedsBeckett.ase.model.Shape;
 import uk.ac.leedsBeckett.ase.service.CommandParserService;
 import uk.ac.leedsBeckett.ase.service.ShapeService;
 
