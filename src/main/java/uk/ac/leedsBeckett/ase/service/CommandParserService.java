@@ -24,6 +24,7 @@ public class CommandParserService {
         switch (command) {
             case "circle": {
                 shape = Circle.createCircle(Arrays.stream(dimensions)
+                        .filter(s -> !s.isEmpty())
                         .mapToDouble(Double::valueOf)
                         .toArray());
                 break;
@@ -31,6 +32,7 @@ public class CommandParserService {
             case "rectangle":
             case "square": {
                 shape = Rectangle.createRectangle(Arrays.stream(dimensions)
+                        .filter(s -> !s.isEmpty())
                         .mapToDouble(Double::valueOf)
                         .toArray());
             }

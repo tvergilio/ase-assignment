@@ -22,7 +22,9 @@
     <Button text="Clear" GridPane.columnIndex="0" GridPane.rowIndex="26" onAction="#onClearButtonClick"/>
     <Button text="Run" GridPane.columnIndex="1" GridPane.rowIndex="26" onAction="#onRunButtonClick"/>
 
-    <GridPane fx:id="graphicGridPane" GridPane.columnIndex="16" GridPane.rowIndex="1" GridPane.rowSpan="24"
+    <Label fx:id="coordinates"
+           GridPane.columnIndex="16" GridPane.rowIndex="1" GridPane.columnSpan="50"/>
+    <GridPane fx:id="graphicGridPane" GridPane.columnIndex="16" GridPane.rowIndex="2" GridPane.rowSpan="24"
               GridPane.columnSpan="50"
               style="-fx-border-color: white; -fx-border-width: 1.5; -fx-background-color: rgb(0,0,0,0.95);">
         <Canvas fx:id="canvas"/>

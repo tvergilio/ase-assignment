@@ -1,10 +1,13 @@
 package uk.ac.leedsBeckett.ase.controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -22,6 +25,8 @@ public class MainController {
     public Canvas canvas;
     @FXML
     public GridPane graphicGridPane;
+    @FXML
+    public Label coordinates;
     @FXML
     private Text resultText;
     @FXML
@@ -54,6 +59,15 @@ public class MainController {
     private void configureCanvas() {
         canvas.setWidth(graphicGridPane.getWidth());
         canvas.setHeight(graphicGridPane.getHeight());
+        showCoordinates();
+    }
+
+    private void showCoordinates() {
+        EventHandler<MouseEvent> showCoordinates = e -> coordinates.setText("x = " + Math.round(e.getX()) + ", y = " + Math.round(e.getY()));
+        EventHandler<MouseEvent> hideCoordinates = e -> coordinates.setText("");
+        canvas.addEventHandler(MouseEvent.MOUSE_ENTERED, showCoordinates);
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, showCoordinates);
+        canvas.addEventHandler(MouseEvent.MOUSE_EXITED, hideCoordinates);
     }
 
     @FXML
