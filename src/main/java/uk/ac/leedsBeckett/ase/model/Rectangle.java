@@ -2,6 +2,8 @@ package uk.ac.leedsBeckett.ase.model;
 
 import javafx.scene.shape.Polygon;
 
+import java.util.List;
+
 public class Rectangle extends Polygon {
 
     private double width;
@@ -45,19 +47,19 @@ public class Rectangle extends Polygon {
         }
     }
 
-    public static Rectangle createRectangle(double[] parameters) {
-        switch (parameters.length) {
+    public static Rectangle createRectangle(List<Double> parameters) {
+        switch (parameters.size()) {
             case 4: {
-                return new Rectangle(parameters[0], parameters[1], parameters[2], parameters[3]);
+                return new Rectangle(parameters.get(0), parameters.get(1), parameters.get(2), parameters.get(3));
             }
             case 3: {
-                return new Rectangle(parameters[0], parameters[1], parameters[2]);
+                return new Rectangle(parameters.get(0), parameters.get(1), parameters.get(2));
             }
             case 2: {
-                return new Rectangle(parameters[0], parameters[1], 100d, 100d); //default size
+                return new Rectangle(parameters.get(0), parameters.get(1), 100d, 100d); //default size
             }
             case 1: {
-                return new Rectangle(200d, 100d, parameters[0], parameters[0]); //default position
+                return new Rectangle(200d, 100d, parameters.get(0), parameters.get(0)); //default position
             }
             default: {
                 return new Rectangle(200d, 100d, 100d, 100d); //default size and position

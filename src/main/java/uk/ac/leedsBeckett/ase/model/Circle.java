@@ -1,5 +1,7 @@
 package uk.ac.leedsBeckett.ase.model;
 
+import java.util.List;
+
 public class Circle extends javafx.scene.shape.Circle {
 
     public Circle(double radius) {
@@ -12,16 +14,16 @@ public class Circle extends javafx.scene.shape.Circle {
         this.setCenterY(y);
     }
 
-    public static Circle createCircle(double[] parameters) {
-        switch (parameters.length) {
+    public static Circle createCircle(List<Double> parameters) {
+        switch (parameters.size()) {
             case 3: {
-                return new Circle(parameters[0], parameters[1], parameters[2]);
+                return new Circle(parameters.get(0), parameters.get(1), parameters.get(2));
             }
             case 2: {
 
             }
             case 1: {
-                return new Circle(parameters[0]);
+                return new Circle(parameters.get(0));
             }
             default: {
                 return new Circle(250d, 150d, 100d);
