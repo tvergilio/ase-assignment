@@ -1,6 +1,5 @@
 package uk.ac.leedsBeckett.ase.service;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.*;
@@ -27,8 +26,10 @@ public class CommandParserService {
             tokens.add(input.toUpperCase());
         }
         parseStrokeColour();
+        parseSolid();
         parseAction();
         parseCoordinates();
+        getShape();
         return command;
     }
 
@@ -54,6 +55,25 @@ public class CommandParserService {
         command.setAction(action);
     }
 
+    private void parseSolid() {
+        command.setSolid(tokens.contains("SOLID"));
+    }
+
+    public void getShape() {
+        Shape shape = null;
+        switch (command.getAction()) {
+            case CIRCLE: {
+                shape = Circle.createCircle(command.getCoordinates());
+                break;
+            }
+            case RECTANGLE:
+            case SQUARE: {
+                shape = Rectangle.createRectangle(command.getCoordinates());
+            }
+        }
+        command.setShape(shape);
+    }
+
     private void parseCoordinates() {
         tokens.stream()
                 .filter(this::isNumeric)
@@ -70,20 +90,5 @@ public class CommandParserService {
             result = false;
         }
         return result;
-    }
-
-    public Shape getShape() {
-        Shape shape = null;
-        switch (command.getAction()) {
-            case CIRCLE: {
-                shape = Circle.createCircle(command.getCoordinates());
-                break;
-            }
-            case RECTANGLE:
-            case SQUARE: {
-                shape = Rectangle.createRectangle(command.getCoordinates());
-            }
-        }
-        return shape;
     }
 }

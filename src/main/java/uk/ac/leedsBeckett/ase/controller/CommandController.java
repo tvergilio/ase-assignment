@@ -2,7 +2,6 @@ package uk.ac.leedsBeckett.ase.controller;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.Command;
 import uk.ac.leedsBeckett.ase.service.CommandParserService;
@@ -21,13 +20,24 @@ public class CommandController {
 
     public String execute(String input, GraphicsContext graphicsContext) {
         graphicsContext.setLineWidth(3.0);
-        graphicsContext.setFill(Color.YELLOW); //change this later to accept different colours at runtime
         Command command = commandParserService.parseInput(input);
-        graphicsContext.setStroke(command.getColour().getColor());
-        Shape shape = commandParserService.getShape();
-        if (shape != null) {
-            shapeService.drawShape(shape, graphicsContext);
-        }
+        choosePencil(graphicsContext, command);
+        draw(graphicsContext, command);
         return "Command entered: " + input;
+    }
+
+    private void choosePencil(GraphicsContext graphicsContext, Command command) {
+        Color color = command.getColour().getColor();
+        graphicsContext.setStroke(color);
+        graphicsContext.setFill(color);
+    }
+
+    private void draw(GraphicsContext graphicsContext, Command command) {
+        if (command.getShape() != null) {
+            shapeService.drawShape(command.getShape(), graphicsContext);
+        }
+        if (command.getSolid()) {
+            shapeService.fillShape(graphicsContext);
+        }
     }
 }
