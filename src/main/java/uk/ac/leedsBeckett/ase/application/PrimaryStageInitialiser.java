@@ -1,6 +1,7 @@
 package uk.ac.leedsBeckett.ase.application;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class PrimaryStageInitialiser implements ApplicationListener<StageReadyEv
         stage.setTitle("ASE Assignment");
         Scene scene = new Scene(fxWeaver.loadView(MainController.class, "/view/main-view.fxml"), 970, 500);
         stage.setScene(scene);
+        stage.getIcons().add(new Image("/static/brush.png"));
         stage.show();
     }
 }
