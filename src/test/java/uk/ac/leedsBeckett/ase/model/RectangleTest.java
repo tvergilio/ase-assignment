@@ -63,7 +63,7 @@ class RectangleTest {
 
     @Test
     void createRectangle_withFiveParameters_throwsException() {
-        assertThrows(InvalidParameterException.class, () -> Circle.createCircle(Arrays.asList(1.0, 2.0, 3.0, 4.0)),
+        assertThrows(InvalidParameterException.class, () -> Rectangle.createRectangle(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0)),
                 "Exception was not thrown.");
     }
 }
