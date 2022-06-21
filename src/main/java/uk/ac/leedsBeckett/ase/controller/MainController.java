@@ -41,6 +41,12 @@ public class MainController {
     }
 
     @FXML
+    public void initialize() {
+        showCoordinates();
+        configureKeys();
+    }
+
+    @FXML
     protected void onRunButtonClick() {
         configureCanvas();
         String message = "";
@@ -60,8 +66,6 @@ public class MainController {
     private void configureCanvas() {
         canvas.setWidth(graphicGridPane.getWidth());
         canvas.setHeight(graphicGridPane.getHeight());
-        showCoordinates();
-        configureKeys();
     }
 
     private void showCoordinates() {
