@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -60,6 +61,7 @@ public class MainController {
         canvas.setWidth(graphicGridPane.getWidth());
         canvas.setHeight(graphicGridPane.getHeight());
         showCoordinates();
+        configureKeys();
     }
 
     private void showCoordinates() {
@@ -68,6 +70,14 @@ public class MainController {
         canvas.addEventHandler(MouseEvent.MOUSE_ENTERED, showCoordinates);
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, showCoordinates);
         canvas.addEventHandler(MouseEvent.MOUSE_EXITED, hideCoordinates);
+    }
+
+    private void configureKeys() {
+        commandInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onRunButtonClick();
+            }
+        });
     }
 
     @FXML

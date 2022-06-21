@@ -34,6 +34,6 @@ public class Triangle extends Polygon {
             return new Triangle(parameters.get(0), parameters.get(1), parameters.get(2),
                     parameters.get(3), parameters.get(4), parameters.get(5));
         }
-        return new Triangle(260d, 60d, 160d, 180d, 370, 180d); //default size and position
+        return new Triangle(156, 189, 247, 50, 343, 191); //default size and position
     }
 }
