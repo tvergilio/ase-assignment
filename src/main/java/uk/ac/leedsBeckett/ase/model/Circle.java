@@ -33,7 +33,7 @@ public class Circle extends javafx.scene.shape.Circle {
             case 0: {
                 return new Circle(DEFAULT_POSITION.getX(), DEFAULT_POSITION.getY(), DEFAULT_RADIUS);
             } default: {
-                throw new InvalidParameterException("You must pass a maximum of four parameters.");
+                throw new InvalidParameterException("You must pass a maximum of three parameters.");
             }
 
         }
