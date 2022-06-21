@@ -69,6 +69,10 @@ public class CommandParserService {
             case RECTANGLE:
             case SQUARE: {
                 shape = Rectangle.createRectangle(command.getCoordinates());
+                break;
+            }
+            case TRIANGLE: {
+                shape = Triangle.createTriangle(command.getCoordinates());
             }
         }
         command.setShape(shape);
