@@ -10,7 +10,7 @@ public class Command {
     private Action action;
     private PencilColour colour;
     private Shape shape;
-    private Boolean solid;
+    private Boolean fill;
     private final List<Double> coordinates = new ArrayList<>();
 
     public Action getAction() {
@@ -29,8 +29,8 @@ public class Command {
         this.colour = colour;
     }
 
-    public Boolean getSolid() {
-        return solid;
+    public Boolean getFill() {
+        return fill;
     }
 
     public Shape getShape() {
@@ -41,8 +41,8 @@ public class Command {
         this.shape = shape;
     }
 
-    public void setSolid(Boolean solid) {
-        this.solid = solid;
+    public void setFill(Boolean fill) {
+        this.fill = fill;
     }
 
     public List<Double> getCoordinates() {

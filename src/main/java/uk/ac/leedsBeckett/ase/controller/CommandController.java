@@ -36,7 +36,7 @@ public class CommandController {
         if (command.getShape() != null) {
             shapeService.drawShape(command.getShape(), graphicsContext);
         }
-        if (command.getSolid()) {
+        if (command.getFill()) {
             shapeService.fillShape(graphicsContext);
         }
     }

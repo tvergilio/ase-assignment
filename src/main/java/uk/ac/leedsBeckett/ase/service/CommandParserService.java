@@ -26,7 +26,7 @@ public class CommandParserService {
             tokens.add(input.toUpperCase());
         }
         parseStrokeColour();
-        parseSolid();
+        parseFill();
         parseAction();
         parseCoordinates();
         getShape();
@@ -55,8 +55,8 @@ public class CommandParserService {
         command.setAction(action);
     }
 
-    private void parseSolid() {
-        command.setSolid(tokens.contains("SOLID"));
+    private void parseFill() {
+        command.setFill(tokens.contains("FILL"));
     }
 
     public void getShape() {
