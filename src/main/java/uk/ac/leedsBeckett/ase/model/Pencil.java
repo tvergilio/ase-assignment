@@ -15,7 +15,17 @@ public class Pencil extends Circle {
     private Color pencilColor;
     private double pencilWidth;
 
-    public Pencil() {
+    //Singleton Pattern
+    private static Pencil INSTANCE;
+
+    public synchronized static Pencil getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Pencil();
+        }
+        return INSTANCE;
+    }
+
+    private Pencil() {
         this(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS, DEFAULT_WIDTH, DEFAULT_COLOUR);
     }
 

@@ -36,16 +36,9 @@ public class MainController {
     @FXML
     private TextArea programInput;
 
-    private final Pencil pencil;
-
-    public MainController(CommandController commandController, ProgramController programController, Pencil pencil) {
+    public MainController(CommandController commandController, ProgramController programController) {
         this.commandController = commandController;
         this.programController = programController;
-        this.pencil = pencil;
-    }
-
-    public Pencil getPencil() {
-        return pencil;
     }
 
     @FXML
@@ -95,6 +88,7 @@ public class MainController {
     }
 
     private void drawPencil() {
+        Pencil pencil = Pencil.getInstance();
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setStroke(pencil.getPencilColor());
         graphicsContext.setLineWidth(pencil.getPencilWidth());
