@@ -1,6 +1,5 @@
 package uk.ac.leedsBeckett.ase.controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,11 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import uk.ac.leedsBeckett.ase.model.Pencil;
 
 @Component
 @FxmlView
@@ -35,20 +36,45 @@ public class MainController {
     @FXML
     private TextArea programInput;
 
-    public MainController(CommandController commandController, ProgramController programController) {
+    private final Pencil pencil;
+
+    public MainController(CommandController commandController, ProgramController programController, Pencil pencil) {
         this.commandController = commandController;
         this.programController = programController;
+        this.pencil = pencil;
+    }
+
+    public Pencil getPencil() {
+        return pencil;
     }
 
     @FXML
     public void initialize() {
-        showCoordinates();
-        configureKeys();
+        configureCanvas();
+        drawPencil();
+    }
+
+    @FXML
+    protected void showCoordinates(MouseEvent mouseEvent) {
+        coordinates.setText("x = " + Math.round(mouseEvent.getX()) + ", y = " + Math.round(mouseEvent.getY()));
+    }
+
+    @FXML
+    protected void hideCoordinates(MouseEvent mouseEvent) {
+        coordinates.setText("");
+    }
+
+    @FXML
+    public void configureKeys(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            onRunButtonClick();
+        }
     }
 
     @FXML
     protected void onRunButtonClick() {
         configureCanvas();
+        drawPencil();
         String message = "";
         boolean bothPopulated = !commandInput.getText().isEmpty() && !programInput.getText().isEmpty();
         boolean commandPopulated = !commandInput.getText().isEmpty();
@@ -68,20 +94,13 @@ public class MainController {
         canvas.setHeight(graphicGridPane.getHeight());
     }
 
-    private void showCoordinates() {
-        EventHandler<MouseEvent> showCoordinates = e -> coordinates.setText("x = " + Math.round(e.getX()) + ", y = " + Math.round(e.getY()));
-        EventHandler<MouseEvent> hideCoordinates = e -> coordinates.setText("");
-        canvas.addEventHandler(MouseEvent.MOUSE_ENTERED, showCoordinates);
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, showCoordinates);
-        canvas.addEventHandler(MouseEvent.MOUSE_EXITED, hideCoordinates);
-    }
-
-    private void configureKeys() {
-        commandInput.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                onRunButtonClick();
-            }
-        });
+    private void drawPencil() {
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        graphicsContext.setStroke(pencil.getPencilColor());
+        graphicsContext.setLineWidth(pencil.getPencilWidth());
+        graphicsContext.beginPath();
+        graphicsContext.arc(pencil.getCenterX(), pencil.getCenterY(), pencil.getRadius(), pencil.getRadius(), 0, 360);
+        graphicsContext.stroke();
     }
 
     @FXML

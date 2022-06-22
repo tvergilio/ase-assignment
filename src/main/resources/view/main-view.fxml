@@ -13,7 +13,7 @@
     <Label text="Enter your command here:"
            GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="3"/>
     <TextField fx:id="commandInput"
-               GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="15"/>
+               GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="15" onKeyPressed="#configureKeys"/>
 
     <Label text="Enter your program here:"
            GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="3"/>
@@ -27,7 +27,7 @@
     <GridPane fx:id="graphicGridPane" GridPane.columnIndex="16" GridPane.rowIndex="2" GridPane.rowSpan="24"
               GridPane.columnSpan="50"
               style="-fx-border-color: white; -fx-border-width: 1.5; -fx-background-color: rgb(0,0,0,0.95);">
-        <Canvas fx:id="canvas"/>
+        <Canvas fx:id="canvas" onMouseEntered="#showCoordinates" onMouseExited="#hideCoordinates" onMouseMoved="#showCoordinates"/>
     </GridPane>
     <Button text="Clear" GridPane.columnIndex="65" GridPane.rowIndex="26" onAction="#onClearCanvasButtonClick"/>
 
