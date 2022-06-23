@@ -41,7 +41,7 @@ public class CommandParserService {
                 .findFirst()
                 .orElse(PencilColour.DEFAULT);
 
-        command.setColour(pencilColour);
+        command.setPencilColour(pencilColour);
     }
 
     private void parseAction() {

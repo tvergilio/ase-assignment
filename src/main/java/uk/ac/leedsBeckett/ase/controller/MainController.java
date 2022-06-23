@@ -1,15 +1,14 @@
 package uk.ac.leedsBeckett.ase.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
@@ -24,9 +23,7 @@ public class MainController {
     private final ProgramController programController;
 
     @FXML
-    public Canvas canvas;
-    @FXML
-    public GridPane graphicGridPane;
+    public Pane canvas;
     @FXML
     public Label coordinates;
     @FXML
@@ -43,8 +40,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        configureCanvas();
-        drawPencil();
+//        drawPencil();
     }
 
     @FXML
@@ -60,14 +56,12 @@ public class MainController {
     @FXML
     public void configureKeys(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
-            onRunButtonClick();
+            onRunButtonClick(keyEvent);
         }
     }
 
     @FXML
-    protected void onRunButtonClick() {
-        configureCanvas();
-        drawPencil();
+    protected void onRunButtonClick(Event event) {
         String message = "";
         boolean bothPopulated = !commandInput.getText().isEmpty() && !programInput.getText().isEmpty();
         boolean commandPopulated = !commandInput.getText().isEmpty();
@@ -75,26 +69,24 @@ public class MainController {
         if (bothPopulated) {
             message = "You can only run a command or a program, not both.";
         } else if (commandPopulated) {
-            message = commandController.execute(commandInput.getText(), canvas.getGraphicsContext2D());
+            message = commandController.execute(commandInput.getText(), canvas);
         } else if (programPopulated) {
             message = programController.execute(programInput.getText());
         }
         resultText.setText(resultText.getText() + "\n" + message);
+//        clearPreviousPencil();
+//        drawPencil();
     }
 
-    private void configureCanvas() {
-        canvas.setWidth(graphicGridPane.getWidth());
-        canvas.setHeight(graphicGridPane.getHeight());
+    private void clearPreviousPencil() {
+        canvas.getChildren().remove(Pencil.getInstance());
     }
 
     private void drawPencil() {
         Pencil pencil = Pencil.getInstance();
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setStroke(pencil.getPencilColor());
-        graphicsContext.setLineWidth(pencil.getPencilWidth());
-        graphicsContext.beginPath();
-        graphicsContext.arc(pencil.getCenterX(), pencil.getCenterY(), pencil.getRadius(), pencil.getRadius(), 0, 360);
-        graphicsContext.stroke();
+        pencil.setFill(pencil.getPencilColour().getColor());
+        canvas.relocate(pencil.getCenterX(), pencil.getCenterY());
+        canvas.getChildren().add(pencil);
     }
 
     @FXML
@@ -106,13 +98,7 @@ public class MainController {
 
     @FXML
     protected void onClearCanvasButtonClick() {
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.clearRect(
-                0,
-                0,
-                canvas.getWidth(),
-                canvas.getHeight());
-        graphicsContext.beginPath();
+        canvas.getChildren().clear();
         resultText.setText("");
     }
 }

@@ -1,21 +1,15 @@
 package uk.ac.leedsBeckett.ase.model;
 
-import javafx.scene.paint.Color;
-import org.springframework.stereotype.Component;
-
-@Component
 public class Pencil extends Circle {
 
-    public static final double DEFAULT_RADIUS = 1.0;
-    public static final double DEFAULT_X = 10.0;
-    public static final double DEFAULT_Y = 10.0;
-    public static final double DEFAULT_WIDTH = 3.0;
-    public static final Color DEFAULT_COLOUR = Color.WHITE;
+    public static final double DEFAULT_RADIUS = 3.0;
+    public static final double DEFAULT_X = 20.0;
+    public static final double DEFAULT_Y = 20.0;
+    public static final double DEFAULT_STROKE_WIDTH = 3.0;
 
-    private Color pencilColor;
-    private double pencilWidth;
+    private PencilColour pencilColour;
+    private double strokeWidth;
 
-    //Singleton Pattern
     private static Pencil INSTANCE;
 
     public synchronized static Pencil getInstance() {
@@ -26,28 +20,20 @@ public class Pencil extends Circle {
     }
 
     private Pencil() {
-        this(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS, DEFAULT_WIDTH, DEFAULT_COLOUR);
+        this(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS, DEFAULT_STROKE_WIDTH, PencilColour.DEFAULT);
     }
 
-    private Pencil(double x, double y, double radius, double pencilWidth, Color pencilColor) {
-        super(x, y, radius);
-        this.pencilWidth = pencilWidth;
-        this.pencilColor = pencilColor;
+    private Pencil(double x, double y, double pencilRadius, double strokeWidth, PencilColour pencilColour) {
+        super(x, y, pencilRadius);
+        this.strokeWidth = strokeWidth;
+        this.pencilColour = pencilColour;
     }
 
-    public Color getPencilColor() {
-        return pencilColor;
+    public PencilColour getPencilColour() {
+        return pencilColour;
     }
 
-    public void setPencilColor(Color pencilColor) {
-        this.pencilColor = pencilColor;
-    }
-
-    public double getPencilWidth() {
-        return pencilWidth;
-    }
-
-    public void setPencilWidth(double pencilWidth) {
-        this.pencilWidth = pencilWidth;
+    public void setPencilColour(PencilColour pencilColour) {
+        this.pencilColour = pencilColour;
     }
 }

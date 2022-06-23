@@ -46,8 +46,8 @@ class RectangleTest {
     @Test
     void createRectangle_withOneParameters_createsSquareUsingDefaultPosition() {
         Rectangle rectangle = Rectangle.createRectangle(List.of(testWidth));
-        assertEquals(Rectangle.DEFAULT_POSITION.getX(), rectangle.getLayoutX());
-        assertEquals(Rectangle.DEFAULT_POSITION.getY(), rectangle.getLayoutY());
+        assertEquals(Rectangle.DEFAULT_X, rectangle.getLayoutX());
+        assertEquals(Rectangle.DEFAULT_Y, rectangle.getLayoutY());
         assertEquals(testWidth, rectangle.getWidth());
         assertEquals(testWidth, rectangle.getHeight());
     }
@@ -55,8 +55,8 @@ class RectangleTest {
     @Test
     void createRectangle_withNoParameters_createsSquareUsingDefaultPositionAndSize() {
         Rectangle rectangle = Rectangle.createRectangle(List.of());
-        assertEquals(Rectangle.DEFAULT_POSITION.getX(), rectangle.getLayoutX());
-        assertEquals(Rectangle.DEFAULT_POSITION.getY(), rectangle.getLayoutY());
+        assertEquals(Rectangle.DEFAULT_X, rectangle.getLayoutX());
+        assertEquals(Rectangle.DEFAULT_Y, rectangle.getLayoutY());
         assertEquals(Rectangle.DEFAULT_WIDTH, rectangle.getWidth());
         assertEquals(Rectangle.DEFAULT_HEIGHT, rectangle.getHeight());
     }

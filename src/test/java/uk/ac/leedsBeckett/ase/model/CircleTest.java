@@ -12,37 +12,37 @@ class CircleTest {
 
     private final double testXPosition = 10.0;
     private final double testYPosition = 20.0;
-    private final double testRadius = 30.0;
+    private final double testDiameter = 60.0;
 
     @Test
     void createCircle_withThreeParameters_createsCircleCorrectly() {
-        Circle circle = Circle.createCircle(Arrays.asList(testXPosition, testYPosition, testRadius));
-        assertEquals(testXPosition, circle.getCenterX());
-        assertEquals(testYPosition, circle.getCenterY());
-        assertEquals(testRadius, circle.getRadius());
+        Circle circle = Circle.createCircle(Arrays.asList(testXPosition, testYPosition, testDiameter));
+        assertEquals(testXPosition, circle.getLayoutX());
+        assertEquals(testYPosition, circle.getLayoutY());
+        assertEquals(testDiameter/2, circle.getRadius());
     }
 
     @Test
     void createCircle_withTwoParameters_createsCircleUsingDefaultRadius() {
         Circle circle = Circle.createCircle(Arrays.asList(testXPosition, testYPosition));
-        assertEquals(testXPosition, circle.getCenterX());
-        assertEquals(testYPosition, circle.getCenterY());
+        assertEquals(testXPosition, circle.getLayoutX());
+        assertEquals(testYPosition, circle.getLayoutY());
         assertEquals(Circle.DEFAULT_RADIUS, circle.getRadius());
     }
 
     @Test
     void createCircle_withOneParameter_createsCircleUsingDefaultPosition() {
-        Circle circle = Circle.createCircle(List.of(testRadius));
-        assertEquals(Circle.DEFAULT_POSITION.getX(), circle.getCenterX());
-        assertEquals(Circle.DEFAULT_POSITION.getY(), circle.getCenterY());
-        assertEquals(testRadius, circle.getRadius());
+        Circle circle = Circle.createCircle(List.of(testDiameter));
+        assertEquals(Circle.DEFAULT_X, circle.getLayoutX());
+        assertEquals(Circle.DEFAULT_Y, circle.getLayoutY());
+        assertEquals(testDiameter/2, circle.getRadius());
     }
 
     @Test
     void createCircle_withNoParameters_createsCircleUsingDefaultRadiusAndPosition() {
         Circle circle = Circle.createCircle(List.of());
-        assertEquals(Circle.DEFAULT_POSITION.getX(), circle.getCenterX());
-        assertEquals(Circle.DEFAULT_POSITION.getY(), circle.getCenterY());
+        assertEquals(Circle.DEFAULT_X, circle.getLayoutX());
+        assertEquals(Circle.DEFAULT_Y, circle.getLayoutY());
         assertEquals(Circle.DEFAULT_RADIUS, circle.getRadius());
     }
 

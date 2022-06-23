@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.canvas.Canvas?>
 <GridPane hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml"
           fx:controller="uk.ac.leedsBeckett.ase.controller.MainController">
     <padding>
@@ -24,11 +23,11 @@
 
     <Label fx:id="coordinates"
            GridPane.columnIndex="16" GridPane.rowIndex="1" GridPane.columnSpan="50"/>
-    <GridPane fx:id="graphicGridPane" GridPane.columnIndex="16" GridPane.rowIndex="2" GridPane.rowSpan="24"
+    <Pane fx:id="canvas" GridPane.columnIndex="16" GridPane.rowIndex="2" GridPane.rowSpan="24"
               GridPane.columnSpan="50"
-              style="-fx-border-color: white; -fx-border-width: 1.5; -fx-background-color: rgb(0,0,0,0.95);">
-        <Canvas fx:id="canvas" onMouseEntered="#showCoordinates" onMouseExited="#hideCoordinates" onMouseMoved="#showCoordinates"/>
-    </GridPane>
+              style="-fx-border-color: white; -fx-border-width: 1.5; -fx-background-color: rgb(0,0,0,0.95);"
+              onMouseEntered="#showCoordinates" onMouseExited="#hideCoordinates" onMouseMoved="#showCoordinates">
+    </Pane>
     <Button text="Clear" GridPane.columnIndex="65" GridPane.rowIndex="26" onAction="#onClearCanvasButtonClick"/>
 
     <Text fx:id="resultText"

@@ -8,7 +8,7 @@ import java.util.List;
 public class Command {
 
     private Action action;
-    private PencilColour colour;
+    private PencilColour pencilColour;
     private Shape shape;
     private Boolean fill;
     private final List<Double> coordinates = new ArrayList<>();
@@ -21,12 +21,12 @@ public class Command {
         this.action = action;
     }
 
-    public PencilColour getColour() {
-        return colour;
+    public PencilColour getPencilColour() {
+        return pencilColour;
     }
 
-    public void setColour(PencilColour colour) {
-        this.colour = colour;
+    public void setPencilColour(PencilColour pencilColour) {
+        this.pencilColour = pencilColour;
     }
 
     public Boolean getFill() {
