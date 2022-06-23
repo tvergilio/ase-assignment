@@ -47,15 +47,15 @@ public class Triangle extends Polygon {
                 new Point2D(midPoint.getX() + distanceFromCentre, midPoint.getY() + distanceFromCentre));
     }
 
-    private Triangle setLayout(Point2D midPoint) {
-        this.setLayoutX(midPoint.getX());
-        this.setLayoutY(midPoint.getY());
+    private Triangle setLayout(Point2D midPoint, double size) {
+        this.setLayoutX(midPoint.getX() - size);
+        this.setLayoutY(midPoint.getY() - size);
         System.out.println("Points: A: " + a + " B: " + b + " C: " + c + " Midpoint: " + midPoint);
         return this;
     }
 
     /**
-     * Create an equilateral triangle specifying x and y (position) and size
+     * Create an isosceles triangle specifying x and y (position) and size
      * @param parameters The first element represents the x coordinate.
      *                   The second element represents the y coordinate.
      *                   The third element represents the size.
@@ -91,8 +91,8 @@ public class Triangle extends Polygon {
                 throw new InvalidParameterException("You must pass between zero and three parameters.");
             }
         }
-        points = Triangle.calculatePoints(position, size/2);
+        points = Triangle.calculatePoints(position, size);
         return new Triangle(points.get(0), points.get(1), points.get(2))
-                .setLayout(position);
+                .setLayout(position, size);
     }
 }

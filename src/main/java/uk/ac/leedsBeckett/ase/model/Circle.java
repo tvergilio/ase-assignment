@@ -10,15 +10,15 @@ public class Circle extends javafx.scene.shape.Circle {
 
     public Circle(double x, double y, double radius) {
         super(x, y, radius);
-        this.setLayoutX(x);
-        this.setLayoutY(y);
+        this.setLayoutX(x - radius);
+        this.setLayoutY(y - radius);
     }
 
     /**
-     * Create a circle specifying x and y (position) and size (diameter)
+     * Create a circle specifying x and y (position) and size (radius)
      * @param parameters The first element represents the x coordinate.
      *                   The second element represents the y coordinate.
-     *                   The third element represents the size (diameter).
+     *                   The third element represents the size (radius).
      * @return an instance of a circle.
      */
     public static Circle createCircle(List<Double> parameters) {
@@ -29,7 +29,7 @@ public class Circle extends javafx.scene.shape.Circle {
             case 3: { //position and size specified
                 x = parameters.get(0);
                 y = parameters.get(1);
-                radius = parameters.get(2)/2;
+                radius = parameters.get(2);
                 break;
             }
             case 2: { //position specified, default size
@@ -41,7 +41,7 @@ public class Circle extends javafx.scene.shape.Circle {
             case 1: { //size specified, default position (position of pencil)
                 x = DEFAULT_X;
                 y = DEFAULT_Y;
-                radius = parameters.get(0)/2;
+                radius = parameters.get(0);
                 break;
             }
             case 0: { //default position (position of pencil) and default size
