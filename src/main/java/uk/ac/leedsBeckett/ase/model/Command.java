@@ -1,10 +1,12 @@
 package uk.ac.leedsBeckett.ase.model;
 
 import javafx.scene.shape.Shape;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Command {
 
     private Action action;
