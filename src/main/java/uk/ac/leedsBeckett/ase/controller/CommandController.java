@@ -46,9 +46,9 @@ public class CommandController {
     }
 
     private void setPencil(Command command) {
-//        Pencil pencil = Pencil.getInstance();
-//        pencil.setPencilColour(command.getPencilColour());
-//        pencil.setCenterX(command.getShape().getLayoutX());
-//        pencil.setCenterY(command.getShape().getLayoutY());
+        Pencil pencil = Pencil.getInstance();
+        pencil.setPencilColour(command.getPencilColour());
+        pencil.setCenterX(command.getShape().getLayoutX());
+        pencil.setCenterY(command.getShape().getLayoutY());
     }
 }
