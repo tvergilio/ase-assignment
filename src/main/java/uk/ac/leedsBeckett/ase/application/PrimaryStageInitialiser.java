@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.controller.MainController;
@@ -14,7 +13,6 @@ public class PrimaryStageInitialiser implements ApplicationListener<StageReadyEv
 
     private final FxWeaver fxWeaver;
 
-    @Autowired
     public PrimaryStageInitialiser(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
     }

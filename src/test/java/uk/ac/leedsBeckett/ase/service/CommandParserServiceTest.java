@@ -1,26 +1,24 @@
 package uk.ac.leedsBeckett.ase.service;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.ac.leedsBeckett.ase.ParsingUtils;
-import uk.ac.leedsBeckett.ase.model.*;
+import uk.ac.leedsBeckett.ase.model.Action;
 
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
-@TestMethodOrder(MethodOrderer.MethodName.class)
 class CommandParserServiceTest {
 
     @Spy
