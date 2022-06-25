@@ -21,9 +21,14 @@ public class CommandController {
     }
 
     public String execute(String input, Pane canvas) {
-        Command command = commandParserService.parseInput(input);
-        draw(canvas, command);
-        return "Command entered: " + input;
+        StringBuilder feedback = new StringBuilder();
+        if (input != null && !input.isEmpty() && canvas != null) {
+            Command command = commandParserService.parseInput(input);
+            draw(canvas, command);
+            feedback.append("Command entered: ")
+                    .append(input);
+        }
+        return feedback.toString();
     }
 
     private void draw(Pane canvas, Command command) {
