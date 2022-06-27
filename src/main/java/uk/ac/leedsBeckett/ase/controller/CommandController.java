@@ -32,7 +32,7 @@ public class CommandController {
     }
 
     private void draw(Pane canvas, Command command) {
-        setPencil(command);
+        changePencilColour(command);
         Pencil pencil = Pencil.getInstance();
         Color color = pencil.getPencilColour().getColor();
         Shape shape = command.getShape();
@@ -45,10 +45,8 @@ public class CommandController {
         }
     }
 
-    private void setPencil(Command command) {
+    private void changePencilColour(Command command) {
         Pencil pencil = Pencil.getInstance();
         pencil.setPencilColour(command.getPencilColour());
-        pencil.setCenterX(command.getShape().getLayoutX());
-        pencil.setCenterY(command.getShape().getLayoutY());
     }
 }

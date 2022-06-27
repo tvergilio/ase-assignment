@@ -39,7 +39,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-//        drawPencil();
+        drawPencil();
     }
 
     @FXML
@@ -73,19 +73,13 @@ public class MainController {
                 message = programController.execute(programInput.getText());
             }
             resultText.setText(resultText.getText() + "\n" + message);
-//        clearPreviousPencil();
-//        drawPencil();
         }
-    }
-
-    private void clearPreviousPencil() {
-        canvas.getChildren().remove(Pencil.getInstance());
     }
 
     private void drawPencil() {
         Pencil pencil = Pencil.getInstance();
         pencil.setFill(pencil.getPencilColour().getColor());
-        canvas.relocate(pencil.getCenterX(), pencil.getCenterY());
+        pencil.relocate(pencil.getLayoutX(), pencil.getLayoutY());
         canvas.getChildren().add(pencil);
     }
 

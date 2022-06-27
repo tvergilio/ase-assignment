@@ -23,8 +23,8 @@ public class Pencil extends Circle {
         this(DEFAULT_X, DEFAULT_Y, DEFAULT_RADIUS, DEFAULT_STROKE_WIDTH, PencilColour.DEFAULT);
     }
 
-    private Pencil(double x, double y, double pencilRadius, double strokeWidth, PencilColour pencilColour) {
-        super(x, y, pencilRadius);
+    private Pencil(double layoutX, double layoutY, double pencilRadius, double strokeWidth, PencilColour pencilColour) {
+        super(layoutX, layoutY, pencilRadius);
         this.strokeWidth = strokeWidth;
         this.pencilColour = pencilColour;
     }
