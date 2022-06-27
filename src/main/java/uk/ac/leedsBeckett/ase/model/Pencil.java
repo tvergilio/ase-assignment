@@ -5,7 +5,7 @@ public class Pencil extends Circle {
     public static final double DEFAULT_RADIUS = 1.5;
     public static final double DEFAULT_X = 20.0;
     public static final double DEFAULT_Y = 20.0;
-    public static final double DEFAULT_STROKE_WIDTH = 3.0;
+    public static final double DEFAULT_STROKE_WIDTH = 1.5;
 
     private PencilColour pencilColour;
     private double strokeWidth;

@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.Pencil;
+import uk.ac.leedsBeckett.ase.model.PencilColour;
 
 @Component
 @FxmlView
@@ -39,7 +40,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        showPencil();
+        initPencil();
     }
 
     @FXML
@@ -76,11 +77,22 @@ public class MainController {
         }
     }
 
-    private void showPencil() {
+    private void initPencil() {
         Pencil pencil = Pencil.getInstance();
-        pencil.setFill(pencil.getPencilColour().getColor());
+        pencil.setCenterX(Pencil.DEFAULT_X);
+        pencil.setCenterY(Pencil.DEFAULT_Y);
+        pencil.setFill(PencilColour.DEFAULT.getColor());
+        pencil.setStroke(PencilColour.DEFAULT.getColor());
+        pencil.setStrokeWidth(Pencil.DEFAULT_STROKE_WIDTH);
+        pencil.setLayoutX(Pencil.DEFAULT_X);
+        pencil.setLayoutY(Pencil.DEFAULT_Y);
         pencil.relocate(pencil.getLayoutX(), pencil.getLayoutY());
         canvas.getChildren().add(pencil);
+    }
+
+    private void clearPencil() {
+        Pencil pencil = Pencil.getInstance();
+        canvas.getChildren().remove(pencil);
     }
 
     @FXML
@@ -94,5 +106,7 @@ public class MainController {
     protected void onClearCanvasButtonClick() {
         canvas.getChildren().clear();
         resultText.setText("");
+        clearPencil();
+        initPencil();
     }
 }
