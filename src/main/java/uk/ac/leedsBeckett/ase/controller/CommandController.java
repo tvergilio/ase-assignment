@@ -1,9 +1,11 @@
 package uk.ac.leedsBeckett.ase.controller;
 
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.Command;
+import uk.ac.leedsBeckett.ase.model.Pencil;
 import uk.ac.leedsBeckett.ase.service.CommandParserService;
 import uk.ac.leedsBeckett.ase.service.ShapeService;
 
@@ -18,26 +20,35 @@ public class CommandController {
         this.shapeService = shapeService;
     }
 
-    public String execute(String input, GraphicsContext graphicsContext) {
-        graphicsContext.setLineWidth(3.0);
-        Command command = commandParserService.parseInput(input);
-        choosePencil(graphicsContext, command);
-        draw(graphicsContext, command);
-        return "Command entered: " + input;
+    public String execute(String input, Pane canvas) {
+        StringBuilder feedback = new StringBuilder();
+        if (input != null && !input.isEmpty() && canvas != null) {
+            Command command = commandParserService.parseInput(input);
+            draw(canvas, command);
+            feedback.append("Command entered: ")
+                    .append(input);
+        }
+        return feedback.toString();
     }
 
-    private void choosePencil(GraphicsContext graphicsContext, Command command) {
-        Color color = command.getColour().getColor();
-        graphicsContext.setStroke(color);
-        graphicsContext.setFill(color);
+    private void draw(Pane canvas, Command command) {
+        setPencil(command);
+        Pencil pencil = Pencil.getInstance();
+        Color color = pencil.getPencilColour().getColor();
+        Shape shape = command.getShape();
+        if (shape != null) {
+            shape.setStroke(color);
+            if (command.getFill()) {
+                shape.setFill(color);
+            }
+            shapeService.drawShape(shape, canvas);
+        }
     }
 
-    private void draw(GraphicsContext graphicsContext, Command command) {
-        if (command.getShape() != null) {
-            shapeService.drawShape(command.getShape(), graphicsContext);
-        }
-        if (command.getFill()) {
-            shapeService.fillShape(command.getShape(), graphicsContext);
-        }
+    private void setPencil(Command command) {
+        Pencil pencil = Pencil.getInstance();
+        pencil.setPencilColour(command.getPencilColour());
+        pencil.setCenterX(command.getShape().getLayoutX());
+        pencil.setCenterY(command.getShape().getLayoutY());
     }
 }

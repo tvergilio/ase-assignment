@@ -1,57 +1,98 @@
 package uk.ac.leedsBeckett.ase.model;
 
+import javafx.geometry.Point2D;
 import javafx.scene.shape.Polygon;
 
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Triangle extends Polygon {
 
-    public static final double[] DEFAULT_X_POINTS = {156d, 247d, 343d};
-    public static final double[] DEFAULT_Y_POINTS = {189d, 50d, 191d};
+    public static final double DEFAULT_SIZE = 30d;
+    public static final double DEFAULT_X = 100d;
+    public static final double DEFAULT_Y = 100d;
 
-    private final double[] xPoints = new double[3];
-    private final double[] yPoints = new double[3];
+    private final Point2D a;
+    private final Point2D b;
+    private final Point2D c;
 
-    public double[] getXPoints() {
-        return xPoints;
+    private Triangle(Point2D a, Point2D b, Point2D c) {
+        super(a.getX(),
+                a.getY(),
+                b.getX(),
+                b.getY(),
+                c.getX(),
+                c.getY());
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
 
-    public double[] getYPoints() {
-        return yPoints;
+    public Point2D getA() {
+        return a;
     }
 
-    public Triangle(double... points) {
-        super(points);
-        if (points.length == 6) {
-            xPoints[0] = points[0];
-            yPoints[0] = points[1];
-            xPoints[1] = points[2];
-            yPoints[1] = points[3];
-            xPoints[2] = points[4];
-            yPoints[2] = points[5];
-        }
+    public Point2D getB() {
+        return b;
     }
 
+    public Point2D getC() {
+        return c;
+    }
+
+    private static List<Point2D> calculatePoints(Point2D midPoint, double distanceFromCentre) {
+        return Arrays.asList(new Point2D(midPoint.getX(), midPoint.getY() - distanceFromCentre),
+                new Point2D(midPoint.getX() - distanceFromCentre, midPoint.getY() + distanceFromCentre),
+                new Point2D(midPoint.getX() + distanceFromCentre, midPoint.getY() + distanceFromCentre));
+    }
+
+    private Triangle setLayout(Point2D midPoint, double size) {
+        this.setLayoutX(midPoint.getX() - size);
+        this.setLayoutY(midPoint.getY() - size);
+        System.out.println("Points: A: " + a + " B: " + b + " C: " + c + " Midpoint: " + midPoint);
+        return this;
+    }
+
+    /**
+     * Create an isosceles triangle specifying x and y (position) and size
+     * @param parameters The first element represents the x coordinate.
+     *                   The second element represents the y coordinate.
+     *                   The third element represents the size.
+     * @return an instance of a triangle.
+     */
     public static Triangle createTriangle(List<Double> parameters) {
+        List<Point2D> points;
+        Point2D position;
+        double size;
+
         switch (parameters.size()) {
-            case 6: { //parameters specified
-                return new Triangle(parameters.get(0),
-                        parameters.get(1),
-                        parameters.get(2),
-                        parameters.get(3),
-                        parameters.get(4),
-                        parameters.get(5));
-            } case 0: { //default size and position
-                return new Triangle(DEFAULT_X_POINTS[0],
-                        DEFAULT_Y_POINTS[0],
-                        DEFAULT_X_POINTS[1],
-                        DEFAULT_Y_POINTS[1],
-                        DEFAULT_X_POINTS[2],
-                        DEFAULT_Y_POINTS[2]);
-            } default: {
-                throw new InvalidParameterException("You must pass zero or six parameters.");
+            case 3: { //position and size specified
+                position = new Point2D(parameters.get(0), parameters.get(1));
+                size = parameters.get(2);
+                break;
+            }
+            case 2: { //position specified, default size
+                position = new Point2D(parameters.get(0), parameters.get(1));
+                size = DEFAULT_SIZE;
+                break;
+            }
+            case 1: { //default position, size specified
+                position = new Point2D(DEFAULT_X, DEFAULT_Y);
+                size = parameters.get(0);
+                break;
+            }
+            case 0: { //default position and size
+                position = new Point2D(DEFAULT_X, DEFAULT_Y);
+                size = DEFAULT_SIZE;
+                break;
+            }
+            default: {
+                throw new InvalidParameterException("You must pass between zero and three parameters.");
             }
         }
+        points = Triangle.calculatePoints(position, size);
+        return new Triangle(points.get(0), points.get(1), points.get(2))
+                .setLayout(position, size);
     }
 }

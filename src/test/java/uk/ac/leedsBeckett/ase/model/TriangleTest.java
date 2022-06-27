@@ -11,46 +11,68 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TriangleTest {
 
-    private final double[] testXPoints = {10.0, 12.0, 15.0};
-    private final double[] testYPoints = {20.0, 22.0, 25.0};
+    private final double size = 10.0;
+    private final double x = 200;
+    private final double y = 100;
 
     @Test
-    void createTriangle_withSixParameters_createsTriangleCorrectly() {
-        Triangle triangle = Triangle.createTriangle(Arrays.asList(testXPoints[0],
-                testYPoints[0],
-                testXPoints[1],
-                testYPoints[1],
-                testXPoints[2],
-                testYPoints[2]));
-        assertEquals(testXPoints[0], triangle.getXPoints()[0]);
-        assertEquals(testYPoints[0], triangle.getYPoints()[0]);
-        assertEquals(testXPoints[1], triangle.getXPoints()[1]);
-        assertEquals(testYPoints[1], triangle.getYPoints()[1]);
-        assertEquals(testXPoints[2], triangle.getXPoints()[2]);
-        assertEquals(testYPoints[2], triangle.getYPoints()[2]);
+    void createTriangle_withThreeParameters_createsTriangleCorrectly() {
+        Triangle triangle = Triangle.createTriangle(List.of(x, y, size));
+        assertEquals(x, triangle.getA().getX());
+        assertEquals(x - size, triangle.getB().getX());
+        assertEquals(x + size, triangle.getC().getX());
+        //Y is inverted
+        assertEquals(y - size, triangle.getA().getY());
+        assertEquals(y + size, triangle.getB().getY());
+        assertEquals(y + size, triangle.getB().getY());
+        //Position
+        assertEquals(x - size, triangle.getLayoutX());
+        assertEquals(y - size, triangle.getLayoutY());
     }
 
     @Test
-    void createRectangle_withNoParameters_createsTriangleUsingDefaultPoints() {
+    void createTriangle_withTwoParameters_createsTriangleCorrectly() {
+        Triangle triangle = Triangle.createTriangle(List.of(x, y));
+        assertEquals(x, triangle.getA().getX());
+        assertEquals(x - Triangle.DEFAULT_SIZE, triangle.getB().getX());
+        assertEquals(x + Triangle.DEFAULT_SIZE, triangle.getC().getX());
+        //Y is inverted
+        assertEquals(y - Triangle.DEFAULT_SIZE, triangle.getA().getY());
+        assertEquals(y + Triangle.DEFAULT_SIZE, triangle.getB().getY());
+        assertEquals(y + Triangle.DEFAULT_SIZE, triangle.getB().getY());
+        //Position
+        assertEquals(x - Triangle.DEFAULT_SIZE, triangle.getLayoutX());
+        assertEquals(y - Triangle.DEFAULT_SIZE, triangle.getLayoutY());
+    }
+
+    @Test
+    void createTriangle_withOneParameter_createsTriangleCorrectly() {
+        Triangle triangle = Triangle.createTriangle(List.of(size));
+        assertEquals(Triangle.DEFAULT_X, triangle.getA().getX());
+        assertEquals(Triangle.DEFAULT_X - size, triangle.getB().getX());
+        assertEquals(Triangle.DEFAULT_X + size, triangle.getC().getX());
+        //Y is inverted
+        assertEquals(Triangle.DEFAULT_Y - size, triangle.getA().getY());
+        assertEquals(Triangle.DEFAULT_Y + size, triangle.getB().getY());
+        assertEquals(Triangle.DEFAULT_Y + size, triangle.getB().getY());
+        //Position
+        assertEquals(Triangle.DEFAULT_X - size, triangle.getLayoutX());
+        assertEquals(Triangle.DEFAULT_Y - size, triangle.getLayoutY());
+    }
+
+    @Test
+    void createTriangle_withNoParameters_createsTriangleCorrectly() {
         Triangle triangle = Triangle.createTriangle(List.of());
-        assertEquals(Triangle.DEFAULT_X_POINTS[0], triangle.getXPoints()[0]);
-        assertEquals(Triangle.DEFAULT_Y_POINTS[0], triangle.getYPoints()[0]);
-        assertEquals(Triangle.DEFAULT_X_POINTS[1], triangle.getXPoints()[1]);
-        assertEquals(Triangle.DEFAULT_Y_POINTS[1], triangle.getYPoints()[1]);
-        assertEquals(Triangle.DEFAULT_X_POINTS[2], triangle.getXPoints()[2]);
-        assertEquals(Triangle.DEFAULT_Y_POINTS[2], triangle.getYPoints()[2]);
-    }
-
-    @Test
-    void createTriangle_withSevenParameters_throwsException() {
-        assertThrows(InvalidParameterException.class, () -> Triangle.createTriangle(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0)),
-                "Exception was not thrown.");
-    }
-
-    @Test
-    void createTriangle_withFiveParameters_throwsException() {
-        assertThrows(InvalidParameterException.class, () -> Triangle.createTriangle(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0)),
-                "Exception was not thrown.");
+        assertEquals(Triangle.DEFAULT_X, triangle.getA().getX());
+        assertEquals(Triangle.DEFAULT_X - Triangle.DEFAULT_SIZE, triangle.getB().getX());
+        assertEquals(Triangle.DEFAULT_X + Triangle.DEFAULT_SIZE, triangle.getC().getX());
+        //Y is inverted
+        assertEquals(Triangle.DEFAULT_Y - Triangle.DEFAULT_SIZE, triangle.getA().getY());
+        assertEquals(Triangle.DEFAULT_Y + Triangle.DEFAULT_SIZE, triangle.getB().getY());
+        assertEquals(Triangle.DEFAULT_Y + Triangle.DEFAULT_SIZE, triangle.getB().getY());
+        //Position
+        assertEquals(Triangle.DEFAULT_X - Triangle.DEFAULT_SIZE, triangle.getLayoutX());
+        assertEquals(Triangle.DEFAULT_Y - Triangle.DEFAULT_SIZE, triangle.getLayoutY());
     }
 
     @Test
@@ -59,21 +81,4 @@ class TriangleTest {
                 "Exception was not thrown.");
     }
 
-    @Test
-    void createTriangle_withThreeParameters_throwsException() {
-        assertThrows(InvalidParameterException.class, () -> Triangle.createTriangle(Arrays.asList(1.0, 2.0, 3.0)),
-                "Exception was not thrown.");
-    }
-
-    @Test
-    void createTriangle_withTwoParameters_throwsException() {
-        assertThrows(InvalidParameterException.class, () -> Triangle.createTriangle(Arrays.asList(1.0, 2.0)),
-                "Exception was not thrown.");
-    }
-
-    @Test
-    void createTriangle_withOneParameters_throwsException() {
-        assertThrows(InvalidParameterException.class, () -> Triangle.createTriangle(List.of(1.0)),
-                "Exception was not thrown.");
-    }
 }

@@ -1,18 +1,17 @@
 package uk.ac.leedsBeckett.ase.controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import uk.ac.leedsBeckett.ase.model.Pencil;
 
 @Component
 @FxmlView
@@ -23,17 +22,15 @@ public class MainController {
     private final ProgramController programController;
 
     @FXML
-    public Canvas canvas;
+    protected Pane canvas;
     @FXML
-    public GridPane graphicGridPane;
+    protected Label coordinates;
     @FXML
-    public Label coordinates;
+    protected Text resultText;
     @FXML
-    private Text resultText;
+    protected TextField commandInput;
     @FXML
-    private TextField commandInput;
-    @FXML
-    private TextArea programInput;
+    protected TextArea programInput;
 
     public MainController(CommandController commandController, ProgramController programController) {
         this.commandController = commandController;
@@ -42,46 +39,54 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        showCoordinates();
-        configureKeys();
+//        drawPencil();
+    }
+
+    @FXML
+    protected void showCoordinates(MouseEvent mouseEvent) {
+        coordinates.setText("x = " + Math.round(mouseEvent.getX()) + ", y = " + Math.round(mouseEvent.getY()));
+    }
+
+    @FXML
+    protected void hideCoordinates(MouseEvent mouseEvent) {
+        coordinates.setText("");
+    }
+
+    @FXML
+    public void configureKeys(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            onRunButtonClick();
+        }
     }
 
     @FXML
     protected void onRunButtonClick() {
-        configureCanvas();
-        String message = "";
-        boolean bothPopulated = !commandInput.getText().isEmpty() && !programInput.getText().isEmpty();
-        boolean commandPopulated = !commandInput.getText().isEmpty();
-        boolean programPopulated = !programInput.getText().isEmpty();
-        if (bothPopulated) {
-            message = "You can only run a command or a program, not both.";
-        } else if (commandPopulated) {
-            message = commandController.execute(commandInput.getText(), canvas.getGraphicsContext2D());
-        } else if (programPopulated) {
-            message = programController.execute(programInput.getText());
-        }
-        resultText.setText(resultText.getText() + "\n" + message);
-    }
-
-    private void configureCanvas() {
-        canvas.setWidth(graphicGridPane.getWidth());
-        canvas.setHeight(graphicGridPane.getHeight());
-    }
-
-    private void showCoordinates() {
-        EventHandler<MouseEvent> showCoordinates = e -> coordinates.setText("x = " + Math.round(e.getX()) + ", y = " + Math.round(e.getY()));
-        EventHandler<MouseEvent> hideCoordinates = e -> coordinates.setText("");
-        canvas.addEventHandler(MouseEvent.MOUSE_ENTERED, showCoordinates);
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, showCoordinates);
-        canvas.addEventHandler(MouseEvent.MOUSE_EXITED, hideCoordinates);
-    }
-
-    private void configureKeys() {
-        commandInput.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                onRunButtonClick();
+        boolean commandPopulated = commandInput != null && !commandInput.getText().isEmpty();
+        boolean programPopulated = programInput != null && !programInput.getText().isEmpty();
+        if (commandPopulated || programPopulated) {
+            String message;
+            if (commandPopulated && programPopulated) {
+                message = "You can only run a command or a program, not both.";
+            } else if (commandPopulated) {
+                message = commandController.execute(commandInput.getText(), canvas);
+            } else {
+                message = programController.execute(programInput.getText());
             }
-        });
+            resultText.setText(resultText.getText() + "\n" + message);
+//        clearPreviousPencil();
+//        drawPencil();
+        }
+    }
+
+    private void clearPreviousPencil() {
+        canvas.getChildren().remove(Pencil.getInstance());
+    }
+
+    private void drawPencil() {
+        Pencil pencil = Pencil.getInstance();
+        pencil.setFill(pencil.getPencilColour().getColor());
+        canvas.relocate(pencil.getCenterX(), pencil.getCenterY());
+        canvas.getChildren().add(pencil);
     }
 
     @FXML
@@ -93,13 +98,7 @@ public class MainController {
 
     @FXML
     protected void onClearCanvasButtonClick() {
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.clearRect(
-                0,
-                0,
-                canvas.getWidth(),
-                canvas.getHeight());
-        graphicsContext.beginPath();
+        canvas.getChildren().clear();
         resultText.setText("");
     }
 }
