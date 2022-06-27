@@ -39,7 +39,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        drawPencil();
+        showPencil();
     }
 
     @FXML
@@ -76,7 +76,7 @@ public class MainController {
         }
     }
 
-    private void drawPencil() {
+    private void showPencil() {
         Pencil pencil = Pencil.getInstance();
         pencil.setFill(pencil.getPencilColour().getColor());
         pencil.relocate(pencil.getLayoutX(), pencil.getLayoutY());

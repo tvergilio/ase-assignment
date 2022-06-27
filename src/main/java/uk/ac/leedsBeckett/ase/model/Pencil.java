@@ -2,7 +2,7 @@ package uk.ac.leedsBeckett.ase.model;
 
 public class Pencil extends Circle {
 
-    public static final double DEFAULT_RADIUS = 3.0;
+    public static final double DEFAULT_RADIUS = 1.5;
     public static final double DEFAULT_X = 20.0;
     public static final double DEFAULT_Y = 20.0;
     public static final double DEFAULT_STROKE_WIDTH = 3.0;
