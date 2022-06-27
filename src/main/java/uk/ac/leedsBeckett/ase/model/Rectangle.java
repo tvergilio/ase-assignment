@@ -80,7 +80,7 @@ public class Rectangle extends Polygon {
                 throw new InvalidParameterException("You must pass a maximum of four parameters.");
             }
         }
-        PencilUtils.movePencil(x + width / 2, y + height / 2, PencilPosition.CENTRE);
+        PencilUtils.movePencil(x + width / 2, y + height / 2);
         return new Rectangle(x, y, width, height);
     }
 

@@ -1,7 +1,7 @@
 package uk.ac.leedsBeckett.ase.model;
 
 public enum Action {
-    CIRCLE("CIRCLE"), SQUARE("SQUARE"), RECTANGLE("RECTANGLE"), TRIANGLE("TRIANGLE"), NONE("NONE");
+    CIRCLE("CIRCLE"), SQUARE("SQUARE"), RECTANGLE("RECTANGLE"), TRIANGLE("TRIANGLE"), LINE("LINE"), NONE("NONE");
 
     final String name;
 

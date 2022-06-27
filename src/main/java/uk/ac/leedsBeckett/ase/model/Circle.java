@@ -53,7 +53,7 @@ public class Circle extends javafx.scene.shape.Circle {
                 throw new InvalidParameterException("You must pass a maximum of three parameters.");
             }
         }
-        PencilUtils.movePencil(x, y, PencilPosition.CENTRE);
+        PencilUtils.movePencil(x, y);
         return new Circle(x, y, radius);
     }
 }

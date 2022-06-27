@@ -91,7 +91,7 @@ public class Triangle extends Polygon {
             }
         }
         points = Triangle.calculatePoints(position, size);
-        PencilUtils.movePencil(position.getX(), position.getY(), PencilPosition.CENTRE);
+        PencilUtils.movePencil(position.getX(), position.getY());
         return new Triangle(points.get(0), points.get(1), points.get(2))
                 .setLayout(position, size);
     }
