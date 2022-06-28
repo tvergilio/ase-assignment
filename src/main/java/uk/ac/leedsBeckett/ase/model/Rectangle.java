@@ -30,8 +30,8 @@ public class Rectangle extends Polygon {
                 x, y + height);
         this.width = width;
         this.height = height;
-        setLayoutX(x - width / 2);
-        setLayoutY(y - height / 2);
+        setLayoutX(x);
+        setLayoutY(y);
     }
 
     public static Rectangle createRectangle(List<Double> parameters) {

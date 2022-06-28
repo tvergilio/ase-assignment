@@ -10,9 +10,6 @@ public class Line extends javafx.scene.shape.Line {
 
     public Line(Point2D start, Point2D end) {
         super(start.getX(), start.getY(), end.getX(), end.getY());
-        this.setLayoutX(start.getX());
-        this.setLayoutY(start.getY());
-        System.out.println("x: " + this.getLayoutX() + ", y: " + this.getLayoutY());
     }
 
     public static Line createLine(List<Double> parameters) {
@@ -25,8 +22,7 @@ public class Line extends javafx.scene.shape.Line {
                 break;
             }
             case 2: { //line from pencil to end point specified
-                Pencil pencil = Pencil.getInstance();
-                start = new Point2D(pencil.getLayoutX(), pencil.getLayoutY());
+                start = getStartFromPencil();
                 end = new Point2D(parameters.get(0), parameters.get(1));
                 break;
             }
@@ -41,5 +37,12 @@ public class Line extends javafx.scene.shape.Line {
         }
         PencilUtils.movePencil(end.getX(), end.getY());
         return new Line(start, end);
+    }
+
+    private static Point2D getStartFromPencil() {
+        Pencil pencil = Pencil.getInstance();
+        double x = Math.max(pencil.getCenterX(), pencil.getLayoutX());
+        double y = Math.max(pencil.getCenterY(), pencil.getLayoutY());
+        return new Point2D(x, y);
     }
 }
