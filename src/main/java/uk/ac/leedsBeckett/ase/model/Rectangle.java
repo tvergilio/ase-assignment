@@ -24,14 +24,15 @@ public class Rectangle extends Polygon {
     }
 
     public Rectangle(double x, double y, double width, double height) {
-        super(x, y,
-                x + width, y,
-                x + width, y + height,
-                x, y + height);
+        super(x - width / 2, y + height / 2,
+                x + width / 2, y + height / 2,
+                x + width / 2, y - height / 2,
+                x - width / 2, y - height / 2
+        );
         this.width = width;
         this.height = height;
-        setLayoutX(x);
-        setLayoutY(y);
+        setLayoutX(x - width / 2);
+        setLayoutY(y - height / 2);
     }
 
     public static Rectangle createRectangle(List<Double> parameters) {
@@ -80,7 +81,7 @@ public class Rectangle extends Polygon {
                 throw new InvalidParameterException("You must pass a maximum of four parameters.");
             }
         }
-        PencilUtils.movePencil(x + width / 2, y + height / 2);
+        PencilUtils.movePencil(x, y);
         return new Rectangle(x, y, width, height);
     }
 

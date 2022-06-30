@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RectangleTest {
 
-    private final double testXPosition = 15.0;
-    private final double testYPosition = 18.0;
+    private final double testXPosition = 150.0;
+    private final double testYPosition = 180.0;
     private final double testWidth = 30.0;
     private final double testHeight = 20.0;
 
     @Test
     void createRectangle_withFourParameters_createsRectangleCorrectly() {
         Rectangle rectangle = Rectangle.createRectangle(Arrays.asList(testXPosition, testYPosition, testWidth, testHeight));
-        assertEquals(testXPosition, rectangle.getLayoutX());
-        assertEquals(testYPosition, rectangle.getLayoutY());
+        assertEquals(testXPosition - testWidth / 2, rectangle.getLayoutX());
+        assertEquals(testYPosition - testHeight / 2, rectangle.getLayoutY());
         assertEquals(testWidth, rectangle.getWidth());
         assertEquals(testHeight, rectangle.getHeight());
     }
@@ -28,8 +28,8 @@ class RectangleTest {
     @Test
     void createRectangle_withThreeParameters_createsSquare() {
         Rectangle rectangle = Rectangle.createRectangle(Arrays.asList(testXPosition, testYPosition, testWidth));
-        assertEquals(testXPosition, rectangle.getLayoutX());
-        assertEquals(testYPosition, rectangle.getLayoutY());
+        assertEquals(testXPosition - testWidth / 2, rectangle.getLayoutX());
+        assertEquals(testYPosition - testWidth / 2, rectangle.getLayoutY());
         assertEquals(testWidth, rectangle.getWidth());
         assertEquals(testWidth, rectangle.getHeight());
     }
@@ -37,8 +37,8 @@ class RectangleTest {
     @Test
     void createRectangle_withTwoParameters_createsRectangleUsingDefaultSize() {
         Rectangle rectangle = Rectangle.createRectangle(Arrays.asList(testXPosition, testYPosition));
-        assertEquals(testXPosition, rectangle.getLayoutX());
-        assertEquals(testYPosition, rectangle.getLayoutY());
+        assertEquals(testXPosition - Rectangle.DEFAULT_WIDTH / 2, rectangle.getLayoutX());
+        assertEquals(testYPosition - Rectangle.DEFAULT_HEIGHT / 2, rectangle.getLayoutY());
         assertEquals(Rectangle.DEFAULT_HEIGHT, rectangle.getWidth());
         assertEquals(Rectangle.DEFAULT_WIDTH, rectangle.getHeight());
     }
@@ -46,8 +46,8 @@ class RectangleTest {
     @Test
     void createRectangle_withOneParameter_createsSquareUsingDefaultPosition() {
         Rectangle rectangle = Rectangle.createRectangle(List.of(testWidth));
-        assertEquals(Rectangle.DEFAULT_X, rectangle.getLayoutX());
-        assertEquals(Rectangle.DEFAULT_Y, rectangle.getLayoutY());
+        assertEquals(Rectangle.DEFAULT_X - testWidth / 2, rectangle.getLayoutX());
+        assertEquals(Rectangle.DEFAULT_Y - testWidth / 2, rectangle.getLayoutY());
         assertEquals(testWidth, rectangle.getWidth());
         assertEquals(testWidth, rectangle.getHeight());
     }
@@ -55,8 +55,8 @@ class RectangleTest {
     @Test
     void createRectangle_withNoParameters_createsSquareUsingDefaultPositionAndSize() {
         Rectangle rectangle = Rectangle.createRectangle(List.of());
-        assertEquals(Rectangle.DEFAULT_X, rectangle.getLayoutX());
-        assertEquals(Rectangle.DEFAULT_Y, rectangle.getLayoutY());
+        assertEquals(Rectangle.DEFAULT_X - Rectangle.DEFAULT_WIDTH / 2, rectangle.getLayoutX());
+        assertEquals(Rectangle.DEFAULT_Y - Rectangle.DEFAULT_HEIGHT / 2, rectangle.getLayoutY());
         assertEquals(Rectangle.DEFAULT_WIDTH, rectangle.getWidth());
         assertEquals(Rectangle.DEFAULT_HEIGHT, rectangle.getHeight());
     }
