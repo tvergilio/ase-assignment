@@ -15,7 +15,7 @@ public class ShapeService {
                 shape.relocate(shape.getLayoutX(), shape.getLayoutY());
             }
             canvas.getChildren().add(shape);
-            drawPencil(shape, canvas);
+            movePencil(shape.getLayoutX(), shape.getLayoutY(), canvas);
         } else {
             throw new ShapeNotSupportedException("The shape specified is not supported: " + shape.getClass().getName());
         }
@@ -25,11 +25,11 @@ public class ShapeService {
         return shape instanceof Rectangle || shape instanceof Circle || shape instanceof Triangle || shape instanceof Line;
     }
 
-    private void drawPencil(Shape shape, Pane canvas) {
+    public void movePencil(double x, double y, Pane canvas) {
         Pencil pencil = Pencil.getInstance();
         canvas.getChildren().remove(pencil);
-        pencil.setCenterX(shape.getLayoutX());
-        pencil.setCenterY(shape.getLayoutY());
+        pencil.setCenterX(x);
+        pencil.setCenterY(y);
         canvas.getChildren().add(pencil);
     }
 }
