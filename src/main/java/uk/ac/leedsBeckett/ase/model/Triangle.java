@@ -50,7 +50,6 @@ public class Triangle extends Polygon {
     private Triangle setLayout(Point2D midPoint, double size) {
         this.setLayoutX(midPoint.getX() - size);
         this.setLayoutY(midPoint.getY() - size);
-        System.out.println("Points: A: " + a + " B: " + b + " C: " + c + " Midpoint: " + midPoint);
         return this;
     }
 
@@ -92,7 +91,9 @@ public class Triangle extends Polygon {
             }
         }
         points = Triangle.calculatePoints(position, size);
+        PencilUtils.movePencil(position.getX(), position.getY());
         return new Triangle(points.get(0), points.get(1), points.get(2))
                 .setLayout(position, size);
     }
+
 }

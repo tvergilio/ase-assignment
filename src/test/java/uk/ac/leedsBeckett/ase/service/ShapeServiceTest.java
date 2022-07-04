@@ -48,24 +48,24 @@ class ShapeServiceTest {
     @Test
     void drawShape_withValidCircle_callsAppropriateMethodsInPane() {
         shapeService.drawShape(circle, pane);
-        verify(circle, times(1)).relocate(circle.getLayoutX(), circle.getLayoutY());
-        verify(pane, times(1)).getChildren();
+        verify(circle, times(2)).relocate(circle.getLayoutX(), circle.getLayoutY());
+        verify(pane, times(3)).getChildren();
         verify(children, times(1)).add(circle);
     }
 
     @Test
     void drawShape_withValidRectangle_callsAppropriateMethodsInPane() {
         shapeService.drawShape(rectangle, pane);
-        verify(rectangle, times(1)).relocate(rectangle.getLayoutX(), rectangle.getLayoutY());
-        verify(pane, times(1)).getChildren();
+        verify(rectangle, times(2)).relocate(rectangle.getLayoutX(), rectangle.getLayoutY());
+        verify(pane, times(3)).getChildren(); //add rectangle, add and remove pencil
         verify(children, times(1)).add(rectangle);
     }
 
     @Test
     void drawShape_withValidTriangle_callsAppropriateMethodsInPane() {
         shapeService.drawShape(triangle, pane);
-        verify(triangle, times(1)).relocate(triangle.getLayoutX(), triangle.getLayoutY());
-        verify(pane, times(1)).getChildren();
+        verify(triangle, times(2)).relocate(triangle.getLayoutX(), triangle.getLayoutY());
+        verify(pane, times(3)).getChildren();
         verify(children, times(1)).add(triangle);
     }
 

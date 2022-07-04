@@ -69,6 +69,11 @@ public class ParsingUtils {
             }
             case TRIANGLE: {
                 shape = Triangle.createTriangle(coordinates);
+                break;
+            }
+            case LINE: {
+                shape = Line.createLine(coordinates);
+                break;
             }
         }
         return shape;

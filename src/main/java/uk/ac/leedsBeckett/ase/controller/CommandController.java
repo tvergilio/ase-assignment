@@ -4,10 +4,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import org.springframework.stereotype.Component;
+import uk.ac.leedsBeckett.ase.model.Action;
 import uk.ac.leedsBeckett.ase.model.Command;
 import uk.ac.leedsBeckett.ase.model.Pencil;
 import uk.ac.leedsBeckett.ase.service.CommandParserService;
 import uk.ac.leedsBeckett.ase.service.ShapeService;
+
+import java.security.InvalidParameterException;
 
 @Component
 public class CommandController {
@@ -24,31 +27,35 @@ public class CommandController {
         StringBuilder feedback = new StringBuilder();
         if (input != null && !input.isEmpty() && canvas != null) {
             Command command = commandParserService.parseInput(input);
-            draw(canvas, command);
+            Shape shape = command.getShape();
+            boolean move = Action.MOVE.equals(command.getAction());
+            if (shape != null) {
+                changePencilColour(command);
+                draw(canvas, shape, command.getFill());
+            } else if (move) {
+                if (2 != command.getCoordinates().size()) {
+                    throw new InvalidParameterException("You must pass X and Y coordinates to move the pencil.");
+                }
+                shapeService.movePencil(command.getCoordinates().get(0), command.getCoordinates().get(1), canvas);
+            }
             feedback.append("Command entered: ")
                     .append(input);
         }
         return feedback.toString();
     }
 
-    private void draw(Pane canvas, Command command) {
-        setPencil(command);
+    private void draw(Pane canvas, Shape shape, Boolean fill) {
         Pencil pencil = Pencil.getInstance();
         Color color = pencil.getPencilColour().getColor();
-        Shape shape = command.getShape();
-        if (shape != null) {
-            shape.setStroke(color);
-            if (command.getFill()) {
-                shape.setFill(color);
-            }
-            shapeService.drawShape(shape, canvas);
+        shape.setStroke(color);
+        if (fill) {
+            shape.setFill(color);
         }
+        shapeService.drawShape(shape, canvas);
     }
 
-    private void setPencil(Command command) {
-        Pencil pencil = Pencil.getInstance();
-        pencil.setPencilColour(command.getPencilColour());
-        pencil.setCenterX(command.getShape().getLayoutX());
-        pencil.setCenterY(command.getShape().getLayoutY());
+    private void changePencilColour(Command command) {
+        Pencil.getInstance()
+                .setPencilColour(command.getPencilColour());
     }
 }

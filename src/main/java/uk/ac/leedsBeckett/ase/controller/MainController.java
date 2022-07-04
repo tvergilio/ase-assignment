@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import uk.ac.leedsBeckett.ase.model.Pencil;
+import uk.ac.leedsBeckett.ase.model.PencilColour;
 
 @Component
 @FxmlView
@@ -39,7 +40,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-//        drawPencil();
+        initPencil();
     }
 
     @FXML
@@ -70,35 +71,42 @@ public class MainController {
             } else if (commandPopulated) {
                 message = commandController.execute(commandInput.getText(), canvas);
             } else {
-                message = programController.execute(programInput.getText());
+                message = programController.execute(programInput.getText(), canvas);
             }
             resultText.setText(resultText.getText() + "\n" + message);
-//        clearPreviousPencil();
-//        drawPencil();
+            onClearButtonClick();
         }
     }
 
-    private void clearPreviousPencil() {
-        canvas.getChildren().remove(Pencil.getInstance());
+    private void initPencil() {
+        Pencil pencil = Pencil.getInstance();
+        pencil.setCenterX(Pencil.DEFAULT_X);
+        pencil.setCenterY(Pencil.DEFAULT_Y);
+        pencil.setFill(PencilColour.DEFAULT.getColor());
+        pencil.setStroke(PencilColour.DEFAULT.getColor());
+        pencil.setStrokeWidth(Pencil.DEFAULT_STROKE_WIDTH);
+        pencil.setLayoutX(Pencil.DEFAULT_X);
+        pencil.setLayoutY(Pencil.DEFAULT_Y);
+        pencil.relocate(pencil.getLayoutX(), pencil.getLayoutY());
+        canvas.getChildren().add(pencil);
     }
 
-    private void drawPencil() {
+    private void clearPencil() {
         Pencil pencil = Pencil.getInstance();
-        pencil.setFill(pencil.getPencilColour().getColor());
-        canvas.relocate(pencil.getCenterX(), pencil.getCenterY());
-        canvas.getChildren().add(pencil);
+        canvas.getChildren().remove(pencil);
     }
 
     @FXML
     protected void onClearButtonClick() {
         commandInput.setText("");
         programInput.setText("");
-        resultText.setText("");
     }
 
     @FXML
     protected void onClearCanvasButtonClick() {
         canvas.getChildren().clear();
         resultText.setText("");
+        clearPencil();
+        initPencil();
     }
 }

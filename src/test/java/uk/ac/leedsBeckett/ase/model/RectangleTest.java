@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RectangleTest {
 
-    private final double testXPosition = 15.0;
-    private final double testYPosition = 18.0;
+    private final double testXPosition = 150.0;
+    private final double testYPosition = 180.0;
     private final double testWidth = 30.0;
     private final double testHeight = 20.0;
 

@@ -36,7 +36,7 @@ class MainControllerTest {
     @Mock
     private CommandController commandController = new CommandController(new CommandParserService(new ParsingUtils()), new ShapeService());
     @Mock
-    private ProgramController programController = new ProgramController();
+    private ProgramController programController = new ProgramController(commandController);
     @Mock
     private MouseEvent mouseEvent;
     @Mock
@@ -112,7 +112,7 @@ class MainControllerTest {
             mainController.programInput = programTextArea;
             mainController.onRunButtonClick();
             verify(commandController, times(0)).execute(any(), any());
-            verify(programController, times(0)).execute(any());
+            verify(programController, times(0)).execute(any(), any());
             assertEquals("You can only run a command or a program, not both.", resultText.getText());
         });
     }
@@ -137,7 +137,7 @@ class MainControllerTest {
             programTextArea.setText("circle");
             mainController.programInput = programTextArea;
             mainController.onRunButtonClick();
-            verify(programController, times(1)).execute("circle");
+            verify(programController, times(1)).execute("circle", any());
             assertEquals("Program entered: circle", resultText.getText());
         });
 
