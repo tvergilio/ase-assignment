@@ -66,15 +66,26 @@ public class MainController {
         boolean programPopulated = programInput != null && !programInput.getText().isEmpty();
         if (commandPopulated || programPopulated) {
             String message;
-            if (commandPopulated && programPopulated) {
-                message = "You can only run a command or a program, not both.";
-            } else if ("CLEAR".equalsIgnoreCase(commandInput.getText())) {
-                onClearCanvasButtonClick();
-                message = "Command entered: " + commandInput.getText();
-            } else if (commandPopulated) {
-                message = commandController.execute(commandInput.getText(), canvas);
-            } else {
-                message = programController.execute(programInput.getText(), canvas);
+            String textEntered = commandInput.getText().isEmpty() ? programInput.getText() : commandInput.getText();
+
+            switch (textEntered.toUpperCase()) {
+                case "CLEAR": {
+                    onClearCanvasButtonClick();
+                    message = "Command entered: " + textEntered;
+                    break;
+                } case "RESET": {
+                    reset();
+                    message = "Command entered: " + textEntered;
+                    break;
+                } default: {
+                    if (commandPopulated && programPopulated) {
+                        message = "You can only run a command or a program, not both.";
+                    } else if (commandPopulated) {
+                        message = commandController.execute(textEntered, canvas);
+                    } else {
+                        message = programController.execute(textEntered, canvas);
+                    }
+                }
             }
             resultText.setText(resultText.getText() + "\n" + message);
             onClearButtonClick();
@@ -109,6 +120,10 @@ public class MainController {
     protected void onClearCanvasButtonClick() {
         canvas.getChildren().clear();
         resultText.setText("");
+        reset();
+    }
+
+    private void reset() {
         clearPencil();
         initPencil();
     }

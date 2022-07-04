@@ -8,6 +8,7 @@ public enum Action {
     LINE("LINE"),
     MOVE("MOVE"),
     CLEAR("CLEAR"),
+    RESET("RESET"),
     NONE("NONE");
 
     final String name;
