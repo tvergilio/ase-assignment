@@ -71,7 +71,7 @@ public class MainController {
             } else if (commandPopulated) {
                 message = commandController.execute(commandInput.getText(), canvas);
             } else {
-                message = programController.execute(programInput.getText());
+                message = programController.execute(programInput.getText(), canvas);
             }
             resultText.setText(resultText.getText() + "\n" + message);
             onClearButtonClick();
