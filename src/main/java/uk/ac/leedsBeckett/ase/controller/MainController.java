@@ -68,6 +68,9 @@ public class MainController {
             String message;
             if (commandPopulated && programPopulated) {
                 message = "You can only run a command or a program, not both.";
+            } else if ("CLEAR".equalsIgnoreCase(commandInput.getText())) {
+                onClearCanvasButtonClick();
+                message = "Command entered: " + commandInput.getText();
             } else if (commandPopulated) {
                 message = commandController.execute(commandInput.getText(), canvas);
             } else {

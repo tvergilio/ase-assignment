@@ -7,6 +7,7 @@ public enum Action {
     TRIANGLE("TRIANGLE"),
     LINE("LINE"),
     MOVE("MOVE"),
+    CLEAR("CLEAR"),
     NONE("NONE");
 
     final String name;
