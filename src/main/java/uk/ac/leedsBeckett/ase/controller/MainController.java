@@ -74,6 +74,7 @@ public class MainController {
                 message = programController.execute(programInput.getText());
             }
             resultText.setText(resultText.getText() + "\n" + message);
+            onClearButtonClick();
         }
     }
 
@@ -99,7 +100,6 @@ public class MainController {
     protected void onClearButtonClick() {
         commandInput.setText("");
         programInput.setText("");
-        resultText.setText("");
     }
 
     @FXML
